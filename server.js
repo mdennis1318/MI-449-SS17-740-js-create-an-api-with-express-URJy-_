@@ -6,22 +6,16 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 var port = process.env.PORT || 8080
 
-app.get('/', function (request, response) {
-  response.json({
-    welcome: 'welcome to my API!'
-  })
-})
-
-app.get('/todos', function (request, response) {
-  response.json(todos)
-})
-
 app.get('/todos/:id', function (request, response) {
   if (!todos[request.params.id]) {
     response.status(404).end('sorry, no such todo: ' + request.params.id)
     return
   }
   response.json(todos[request.params.id])
+})
+
+app.get('/todos', function (request, response) {
+  response.json(todos)
 })
 
 app.post('/todos', function (request, response) {
